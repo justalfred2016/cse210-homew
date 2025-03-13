@@ -6,37 +6,67 @@ public static class FileHandler
 {
     public static void SaveToFile(string filename, List<Entry> entries)
     {
-        using (StreamWriter writer = new StreamWriter(filename))
+        try
         {
-            foreach (var entry in entries)
+            using (StreamWriter writer = new StreamWriter(filename))
             {
-                writer.WriteLine($"{entry.Date} {entry.Prompt}");
-                writer.WriteLine($"{entry.Response}");
+                foreach (var entry in entries)
+                {
+                    writer.WriteLine(value: $"{entry._Date} {entry._Prompt} {entry._Response}");
+                }
             }
+            Console.WriteLine("Journal saved successfully!");
         }
-        Console.WriteLine("Journal saved successfully.");
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error saving file: {ex.Message}");
+        }
     }
 
     public static List<Entry> LoadFromFile(string filename)
     {
-        List<Entry> entries = new List<Entry>();
+        List<Entry> loadedEntries = new List<Entry>();
 
-        if (File.Exists(filename))
+        try
         {
-            foreach (var line in File.ReadAllLines(filename))
+            if (!File.Exists(filename))
             {
-                string[] part = line.Split();
-                if (part.Length == 3)
+                Console.WriteLine("File does not exist. Creating a new file.");
+                File.Create(filename).Close();
+            }
+
+            using (StreamReader reader = new StreamReader(filename))
+            {
+                string line;
+                while ((line = reader.ReadLine()) != null)
                 {
-                    entries.Add(new Entry(part[1], part[2]) { Date = part[0] });
+                    string[] parts = line.Split('|');
+                    if (parts.Length == 3)
+                    {
+                        loadedEntries.Add(new Entry(parts[0], parts[1], parts[2]));
+                    }
                 }
             }
-            Console.WriteLine("Journal loaded successfully.");
+
+            // Display the loaded entries in the console
+            if (loadedEntries.Count > 0)
+            {
+                Console.WriteLine("\nLoaded Entries:");
+                foreach (var entry in loadedEntries)
+                {
+                    Console.WriteLine($"[{entry._Date}] Prompt: {entry._Prompt}\nResponse: {entry._Response}\n");
+                }
+            }
+            else
+            {
+                Console.WriteLine("No entries found in the file.");
+            }
         }
-        else
+        catch (Exception ex)
         {
-            Console.WriteLine("File not found.");
+            Console.WriteLine($"Error loading file: {ex.Message}");
         }
-        return entries;
+
+        return loadedEntries;
     }
 }

@@ -2,19 +2,19 @@ using System;
 
 public class Entry
 {
-    public string Date { get; set; }
-    public string Prompt { get; set; }
-    public string Response { get; set; }
+    public string _Date { get; }
+    public string _Prompt { get; }
+    public string _Response { get; }
 
-    public Entry(string prompt, string response)
+    public Entry(string date, string prompt, string response)
     {
-        Date = DateTime.Now.ToString("yyyy-MM-dd");
-        Prompt = prompt;
-        Response = response;
+        _Date = date;
+        _Prompt = prompt;
+        _Response = response;
     }
 
     public override string ToString()
     {
-        return $"{Date}  {Prompt}  \n{Response}";
+        return $"Date: {_Date} Prompt: {_Prompt}\nResponse: {_Response}\n";
     }
 }

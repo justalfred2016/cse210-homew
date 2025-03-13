@@ -3,39 +3,48 @@ using System.Collections.Generic;
 
 public class Journal
 {
-    private List<Entry> entries = new List<Entry>();
+    private List<Entry> entries;
+    private List<string> prompts;
 
-    private List<string> prompts = new List<string>
+    public Journal()
     {
-        "Who was the most interesting person I interacted with today?",
-        "What was the best part of my day?",
-        "How did I see the hand of the Lord in my life today?",
-        "What was the strongest emotion I felt today?",
-        "If I had one thing I could do over today, what would it be?",
-    };
+        entries = new List<Entry>();
+        prompts = new List<string>
+        {
+            "What is one way I can better support or uplift someone in my family or community this week?",
+            "What was the best part of my day?",
+            "How can I create more meaningful connections with the people around me?",
+            "What was the strongest emotion I felt today?",
+            "If I had one thing I could do over today, what would it be?",
+            "What am I most grateful for today?",
+            "What did I learn today?",
+            "What’s one thing I’ve been overcomplicating in my life?"
+        };
+    }
 
     public void AddEntry()
     {
-        Random rand = new Random();
-        string prompt = prompts[rand.Next(prompts.Count)];
+        Random random = new Random();
+        string prompt = prompts[random.Next(prompts.Count)];
         Console.WriteLine($"Prompt: {prompt}");
         Console.Write("Your response: ");
         string response = Console.ReadLine();
-        entries.Add(new Entry(prompt, response));
+        string date = DateTime.Now.ToString("yyyy-MM-dd");
+        entries.Add(new Entry(date, prompt, response));
+        Console.WriteLine("Entry added successfully!");
     }
 
     public void DisplayJournal()
     {
         if (entries.Count == 0)
         {
-            Console.WriteLine("No journal entries found.");
+            Console.WriteLine("No entries found.");
+            return;
         }
-        else
+
+        foreach (var entry in entries)
         {
-            foreach (var entry in entries)
-            {
-                Console.WriteLine(entry);
-            }
+            Console.WriteLine(entry);
         }
     }
 
