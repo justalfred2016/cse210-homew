@@ -10,7 +10,7 @@ public static class FileHandler
     {
         foreach (var entry in entries)
         {
-            writer.WriteLine($"{entry.Date}|{entry.Prompt}|{entry.Response}");
+            writer.WriteLine($"{entry._Date}|{entry._Prompt}|{entry._Response}");
         }
     }
     Console.WriteLine("Journal saved successfully!");
