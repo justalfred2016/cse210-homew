@@ -3,8 +3,8 @@ using System.Collections.Generic;
 
 public class Journal
 {
-    private List<Entry> entries;
-    private List<string> prompts;
+    public List<Entry> entries;
+    public List<string> prompts;
 
     public Journal()
     {
