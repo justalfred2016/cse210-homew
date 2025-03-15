@@ -3,13 +3,13 @@ using System.Collections.Generic;
 
 public class Journal
 {
-    public List<Entry> entries;
-    public List<string> prompts;
+    public List<Entry> _entries;
+    public List<string> _prompts;
 
     public Journal()
     {
-        entries = new List<Entry>();
-        prompts = new List<string>
+        _entries = new List<Entry>();
+        _prompts = new List<string>
         {
             "What is one way I can better support or uplift someone in my family or community this week?",
             "What was the best part of my day?",
@@ -25,24 +25,24 @@ public class Journal
     public void AddEntry()
     {
         Random random = new Random();
-        string prompt = prompts[random.Next(prompts.Count)];
+        string prompt = _prompts[random.Next(_prompts.Count)];
         Console.WriteLine($"Prompt: {prompt}");
         Console.Write("Your response: ");
         string response = Console.ReadLine();
         string date = DateTime.Now.ToString("yyyy-MM-dd");
-        entries.Add(new Entry(date, prompt, response));
+        _entries.Add(new Entry(date, prompt, response));
         Console.WriteLine("Entry added successfully!");
     }
 
     public void DisplayJournal()
     {
-        if (entries.Count == 0)
+        if (_entries.Count == 0)
         {
             Console.WriteLine("No entries found.");
             return;
         }
 
-        foreach (var entry in entries)
+        foreach (var entry in _entries)
         {
             Console.WriteLine(entry);
         }
@@ -50,11 +50,12 @@ public class Journal
 
     public List<Entry> GetEntries()
     {
-        return entries;
+        return _entries;
     }
 
     public void LoadEntries(List<Entry> loadedEntries)
     {
-        entries = loadedEntries;
+        _entries = loadedEntries;
     }
+    
 }
