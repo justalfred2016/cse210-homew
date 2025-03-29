@@ -4,9 +4,6 @@ using System.Collections.Generic;
 namespace ProductOrderingSystem
 {
    
-   
-   
-
     class Program
     {
         static void Main(string[] args)
