@@ -95,8 +95,6 @@ namespace MindfulnessApp.Activities
             }
             Console.ResetColor();
             
-            // Since this is static, we can't use instance methods here
-            // So we'll create a temporary instance just for the spinner
             new BreathingActivity().PauseWithSpinner(3);
         }
     }
