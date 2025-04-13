@@ -12,7 +12,7 @@ namespace EternalQuest
         {
             _level = 1;
             _experience = 0;
-            _experienceToNextLevel = 500;
+            _experienceToNextLevel = 300;
         }
 
         public int Level => _level;
